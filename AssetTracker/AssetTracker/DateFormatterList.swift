@@ -13,7 +13,7 @@ class DateFormatterList
     static let mainDateFormatter: NSDateFormatter =
     {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ssZ"
+        dateFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         return dateFormatter
     }()
