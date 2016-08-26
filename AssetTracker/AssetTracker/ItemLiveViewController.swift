@@ -22,11 +22,12 @@ protocol LiveTracker {
 
 class ItemLiveViewController: UIViewController {
 
-    init(tracker: LiveTracker, initialCoordinate: CLLocationCoordinate2D, indicatorColor: UIColor) {
-        self.tracker = tracker
+    init(asset: AssetN, initialCoordinate: CLLocationCoordinate2D, indicatorColor: UIColor) {
+        assetLocationStream = AssetLocationStream(asset: asset)
         self.initialCoordinate = initialCoordinate
         self.indicatorColor = indicatorColor
         super.init(nibName: nil, bundle: nil)
+        assetLocationStream.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,12 +37,19 @@ class ItemLiveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCurrentLocationAnnotation(initialCoordinate)
-        tracker.startTracking { [weak self] result in
-            self?.consume(result)
-        }
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        assetLocationStream.start()
     }
     
-    private let tracker: LiveTracker
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        assetLocationStream.stop()
+    }
+    
+    private let assetLocationStream: AssetLocationStream
     private let initialCoordinate: CLLocationCoordinate2D
     private let indicatorColor: UIColor
     @IBOutlet private weak var mapView: MKMapView! {
@@ -98,5 +106,19 @@ private extension ItemLiveViewController {
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotation(Annotation(coordinate: coordinate, color: indicatorColor))
         mapView.setCenterCoordinate(coordinate, animated: true)
+    }
+}
+
+
+extension ItemLiveViewController: AssetLocationStreamDelegate
+{
+    func assetLocationStream(assetLocationStream: AssetLocationStream, didReceiveAssetTrackPoint trackPoint: AssetTrackPoint)
+    {
+        consume(trackPoint.location)
+    }
+    
+    func assetLocationStream(assetLocationStream: AssetLocationStream, didReceiveError error: ErrorType)
+    {
+        
     }
 }

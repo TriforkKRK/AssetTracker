@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,8 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: ItemsListViewControllerDelegate {
     
     func itemsListViewController(controller: ItemsListViewController, didRequestDetailsForAsset asset: Asset, color: UIColor) {
-        let liveVC = ItemLiveViewController(tracker: MockLiveTracker(), initialCoordinate: asset.location, indicatorColor: color)
-        liveVC.title = asset.title
+        
+        let asset = AssetN(assetID: "4f0047001951343334363036")
+        let initialCoordinate = CLLocationCoordinate2D(latitude: 50, longitude: 20)
+        
+        let liveVC = ItemLiveViewController(asset: asset, initialCoordinate: initialCoordinate, indicatorColor: color)
+        liveVC.title = "4f0047001951343334363036"
         navController.pushViewController(liveVC, animated: true)
     }
 }
