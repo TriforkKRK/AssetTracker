@@ -63,6 +63,14 @@ class ItemLiveViewController: UIViewController {
 
 extension ItemLiveViewController: MKMapViewDelegate {
     
+    func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        print("regionWillChangeAnimated")
+    }
+    
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        print("regionDidChangeAnimated")
+    }
+    
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? Annotation else {
             return nil
