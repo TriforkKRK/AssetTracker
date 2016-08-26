@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: ItemsListViewControllerDelegate {
     
-    func itemsListViewController(controller: ItemsListViewController, didRequestDetailsForAsset asset: SimpleAsset, color: UIColor) {
+    func itemsListViewController(controller: ItemsListViewController, didRequestDetailsForAsset asset: Asset, color: UIColor) {
         
         let assetN = AssetN(assetID: "4f0047001951343334363036")
         let initialCoordinate = CLLocationCoordinate2D(latitude: 50, longitude: 20)

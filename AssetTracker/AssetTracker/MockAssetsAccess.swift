@@ -20,7 +20,7 @@ struct MockAssetAccess
 
 extension MockAssetAccess: AssetsAccess
 {
-    func fetchAssets(completion: [SimpleAsset]? -> Void)
+    func fetchAssets(completion: [Asset]? -> Void)
     {
         operationQueue.addOperationWithBlock
         {
@@ -43,7 +43,7 @@ extension MockAssetAccess: AssetsAccess
 //                        WTF?
 //                        let assets = array.map { SimpleAsset(json: $0) }
 //                        completion(assets)
-                        var simpleAssets = [SimpleAsset]()
+                        var simpleAssets = [Asset]()
                         for json in array
                         {
                             let asset = try SimpleAsset(json: json)
@@ -66,7 +66,7 @@ extension MockAssetAccess: AssetsAccess
     }
 }
 
-struct SimpleAsset {
+struct SimpleAsset: Asset {
     let title: String
     let location: CLLocationCoordinate2D
 }
