@@ -9,20 +9,64 @@
 import Foundation
 import MapKit
 
-struct MockAssetAccess {}
-
-extension MockAssetAccess: AssetsAccess {
-    
-    func fetchAssets(completion: [Asset]? -> Void) {
-        completion([
-            SimpleAsset(title: "Bike", latitude: 50.0647, longitude: 19.945),
-            SimpleAsset(title: "iPhone", latitude: 50.2649, longitude: 19.0238),
-            SimpleAsset(title: "Truck full of money", latitude: 52.2296, longitude: 21.0122),
-            ])
+struct MockAssetAccess
+{
+    private let operationQueue = NSOperationQueue()
+    init()
+    {
+        operationQueue.maxConcurrentOperationCount = 1
     }
 }
 
-private struct SimpleAsset: Asset {
+extension MockAssetAccess: AssetsAccess
+{
+    func fetchAssets(completion: [SimpleAsset]? -> Void)
+    {
+        operationQueue.addOperationWithBlock
+        {
+            do
+            {
+                let URL = NSURL(string: "http://10.100.0.56:9234/devices")!
+                let data = try NSData(contentsOfURL: URL, options: [])
+                
+                var error: NSError?
+                let messageJSON = JSON(data: data, options: .AllowFragments, error: &error)
+                
+                if error != nil
+                {
+                    NSOperationQueue.mainQueue().addOperationWithBlock { completion(nil) }
+                }
+                else
+                {
+                    if let array = messageJSON.array
+                    {
+//                        WTF?
+//                        let assets = array.map { SimpleAsset(json: $0) }
+//                        completion(assets)
+                        var simpleAssets = [SimpleAsset]()
+                        for json in array
+                        {
+                            let asset = try SimpleAsset(json: json)
+                            simpleAssets.append(asset)
+                        }
+                        
+                        NSOperationQueue.mainQueue().addOperationWithBlock { completion(simpleAssets) }
+                    }
+                    else
+                    {
+                        NSOperationQueue.mainQueue().addOperationWithBlock { completion(nil) }
+                    }
+                }
+            }
+            catch
+            {
+                NSOperationQueue.mainQueue().addOperationWithBlock { completion(nil) }
+            }
+        }
+    }
+}
+
+struct SimpleAsset {
     let title: String
     let location: CLLocationCoordinate2D
 }
@@ -32,3 +76,13 @@ extension SimpleAsset {
         self.init(title: title, location: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
     }
 }
+
+extension SimpleAsset
+{
+    init(json: JSON) throws
+    {
+        title = try json.stringForKey("display_name")
+        location = try json.locationCoordinate2DForKey("data")
+    }
+}
+

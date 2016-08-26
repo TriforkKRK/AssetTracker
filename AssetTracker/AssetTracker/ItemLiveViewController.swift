@@ -121,7 +121,7 @@ extension ItemLiveViewController: AssetLocationStreamDelegate
 {
     func assetLocationStream(assetLocationStream: AssetLocationStream, didReceiveAssetTrackPoint trackPoint: AssetTrackPoint)
     {
-        consume(trackPoint.location)
+        NSOperationQueue.mainQueue().addOperationWithBlock { self.consume(trackPoint.location) }
     }
     
     func assetLocationStream(assetLocationStream: AssetLocationStream, didReceiveError error: ErrorType)

@@ -9,19 +9,19 @@
 import UIKit
 import MapKit
 
-protocol Asset {
-    var title: String { get }
-    var location: CLLocationCoordinate2D { get }
-}
+//protocol Asset {
+//    var title: String { get }
+//    var location: CLLocationCoordinate2D { get }
+//}
 
 protocol AssetsAccess {
     
-    func fetchAssets(completion: [Asset]? -> Void)
+    func fetchAssets(completion: [SimpleAsset]? -> Void)
 }
 
 protocol ItemsListViewControllerDelegate: class {
     
-    func itemsListViewController(controller: ItemsListViewController, didRequestDetailsForAsset asset: Asset, color: UIColor)
+    func itemsListViewController(controller: ItemsListViewController, didRequestDetailsForAsset asset: SimpleAsset, color: UIColor)
 }
 
 class ItemsListViewController: UIViewController {
@@ -46,7 +46,7 @@ class ItemsListViewController: UIViewController {
     private let assetsAccess: AssetsAccess
     
     // table view
-    private var assetsDataSource: SimpleTableViewDataSource<Asset, ItemTableViewCell>? {
+    private var assetsDataSource: SimpleTableViewDataSource<SimpleAsset, ItemTableViewCell>? {
         didSet {
             tableView.dataSource = assetsDataSource
         }
@@ -89,7 +89,7 @@ private extension ItemsListViewController {
         }
     }
     
-    func updateViewWithAssets(assets: [Asset]) {
+    func updateViewWithAssets(assets: [SimpleAsset]) {
         // table view
         assetsDataSource = SimpleTableViewDataSource(items: assets ?? [], cellType: .Nib(itemNib)) { (item, cell, indexPath) in
             cell.titleLabel.text = item.title
