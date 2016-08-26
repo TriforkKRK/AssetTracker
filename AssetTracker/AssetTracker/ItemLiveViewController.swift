@@ -105,7 +105,14 @@ private extension ItemLiveViewController {
     func updateCurrentLocationAnnotation(coordinate: CLLocationCoordinate2D) {
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotation(Annotation(coordinate: coordinate, color: indicatorColor))
-        mapView.setCenterCoordinate(coordinate, animated: true)
+        
+        // center map only if indicator has moved
+        let mapPoint = MKMapPointForCoordinate(coordinate)
+        let mapRect = mapView.visibleMapRect
+        if !MKMapRectContainsPoint(mapRect, mapPoint)
+        {
+            mapView.setCenterCoordinate(coordinate, animated: true)
+        }
     }
 }
 
