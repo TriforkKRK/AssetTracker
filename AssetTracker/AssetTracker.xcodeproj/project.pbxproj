@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2EA8CB1A1D701DE2005379E2 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8CB191D701DE2005379E2 /* WebSocket.swift */; };
 		2EA8CB1C1D70220E005379E2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EA8CB1B1D70220E005379E2 /* libz.tbd */; };
+		2EA8CB1E1D7024CC005379E2 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8CB1D1D7024CC005379E2 /* SwiftyJSON.swift */; };
 		65DA56C81D6DD6E900BE2365 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65DA56C61D6DD6E900BE2365 /* LaunchScreen.storyboard */; };
 		65DA56DD1D6DD77500BE2365 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DA56CF1D6DD77500BE2365 /* Annotation.swift */; };
 		65DA56DE1D6DD77500BE2365 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DA56D01D6DD77500BE2365 /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		2EA8CB191D701DE2005379E2 /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		2EA8CB1B1D70220E005379E2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		2EA8CB1D1D7024CC005379E2 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		65DA56BA1D6DD6E900BE2365 /* AssetTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AssetTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65DA56C71D6DD6E900BE2365 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65DA56CF1D6DD77500BE2365 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 		2EA8CB181D701DE2005379E2 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				2EA8CB1D1D7024CC005379E2 /* SwiftyJSON.swift */,
 				2EA8CB191D701DE2005379E2 /* WebSocket.swift */,
 			);
 			path = External;
@@ -219,6 +222,7 @@
 				65DA56DF1D6DD77500BE2365 /* ItemLiveViewController.swift in Sources */,
 				65DA56E11D6DD77500BE2365 /* ItemsListViewController.swift in Sources */,
 				65DA56E81D6DD77500BE2365 /* SimpleTableViewDataSource.swift in Sources */,
+				2EA8CB1E1D7024CC005379E2 /* SwiftyJSON.swift in Sources */,
 				2EA8CB1A1D701DE2005379E2 /* WebSocket.swift in Sources */,
 				65DA56E61D6DD77500BE2365 /* MockAssetsAccess.swift in Sources */,
 				65DA56E91D6DD77500BE2365 /* String+UIImage.swift in Sources */,
